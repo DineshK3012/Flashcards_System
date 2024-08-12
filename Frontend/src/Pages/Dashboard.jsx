@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Sidebar from '../Components/Sidebar';
 import AddFlashcard from '../Components/AddFlashcard';
-import EditFlashcard from '../Components/EditFlashcard';
+import EditFlashcards from '../Components/EditFlashcards.jsx';
 import {EditUsers} from "../Components/EditUsers.jsx";
 
 const Dashboard = () => {
-    const [activeComponent, setActiveComponent] = useState(0);
+    const [activeComponent, setActiveComponent] = useState(2);
 
     const handleOptionClick = (option) => {
         setActiveComponent(option);
@@ -18,7 +18,7 @@ const Dashboard = () => {
             case 1:
                 return <AddFlashcard />;
             case 2:
-                return <EditFlashcard />;
+                return <EditFlashcards />;
             default:
                 return <EditUsers />;
         }

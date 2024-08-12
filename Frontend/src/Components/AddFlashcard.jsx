@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const AddFlashcard = () => {
-    const [flashcard, setFlashcard] = useState({ question: '', answer: '' });
+    const [flashcard, setFlashcard] = useState({ question: '', answer: '', topic: '' });
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
@@ -14,21 +14,37 @@ const AddFlashcard = () => {
         setError('');
 
         // Validate fields
-        if (!flashcard.question.trim() || !flashcard.answer.trim()) {
-            setError('Both fields are required.');
+        if (!flashcard.question.trim() || !flashcard.answer.trim() || !flashcard.topic.trim()) {
+            setError('All fields are required.');
             return;
         }
 
-        //calling api to add it to the database
+        // Call API to add it to the database
         console.log(flashcard);
 
         // Clear the input fields
-        setFlashcard({ question: '', answer: '' });
+        setFlashcard({ question: '', answer: '', topic: '' });
     };
 
     return (
         <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
             <h2 className="text-2xl text-center font-semibold text-gray-800 mb-4">Add Flashcard</h2>
+
+            <div className="mb-4">
+                <label htmlFor="topic" className="block text-gray-700 font-medium mb-2">
+                    Topic
+                </label>
+                <input
+                    id="topic"
+                    name="topic"
+                    value={flashcard.topic}
+                    onChange={handleChange}
+                    placeholder="Enter the topic"
+                    className="w-full p-3 border border-gray-200 rounded-lg focus:border-gray-400 outline-none"
+                    required
+                />
+            </div>
+
             <div className="mb-4">
                 <label htmlFor="question" className="block text-gray-700 font-medium mb-2">
                     Question
@@ -39,7 +55,7 @@ const AddFlashcard = () => {
                     value={flashcard.question}
                     onChange={handleChange}
                     placeholder="Enter the question"
-                    className="w-full p-3 border-gray-200 rounded-lg outline-none"
+                    className="w-full p-3 border-gray-200 rounded-lg focus:border-gray-400 outline-none focus:ring-0"
                     required
                 />
             </div>
@@ -54,7 +70,7 @@ const AddFlashcard = () => {
                     value={flashcard.answer}
                     onChange={handleChange}
                     placeholder="Enter the answer"
-                    className="w-full p-3 border-gray-200 rounded-lg outline-none"
+                    className="w-full p-3 border-gray-200 rounded-lg focus:border-gray-400 outline-none focus:ring-0"
                     required
                 />
             </div>

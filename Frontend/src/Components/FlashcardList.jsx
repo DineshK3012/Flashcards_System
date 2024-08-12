@@ -18,10 +18,6 @@ export default function FlashcardList() {
         });
     }
 
-    useEffect(() => {
-        // console.log(Flashcards);
-    }, []);
-
     return (
         <>
             <div className="m-5 h-fit overflow-hidden">
