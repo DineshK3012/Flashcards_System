@@ -1,19 +1,25 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import flashcards from "../../public/flashcards.js";
 import EditFlashcard from "./EditFlashcard.jsx";
+import useFlashcards from "../hooks/useFlashcards.js";
+import {useRecoilState} from "recoil";
+import {flashcardsAtom} from "../recoil/flashcardAtom.js";
 
 export default function EditFlashcards() {
-    const [Flashcards, setFlashcards] = useState(flashcards);
+    const [Flashcards, setFlashcards] = useRecoilState(flashcardsAtom)
+    const { handleEditFlashcard, handleDeleteFlashcard, fetchFlashcards} = useFlashcards();
 
-    function handleDelete(id){
-        // setFlashcards((prevflashCard) =>{
-        //     return prevflashCard.filter((f) => f.id !== id)
-        // })
+    const handleDelete = async (id)=> {
+        await handleDeleteFlashcard(id);
     }
 
-    function handleSave(flashcard){
-        console.log(flashcard);
+    const handleSave= async (flashcard)=>{
+        await handleEditFlashcard(flashcard.id, flashcard);
     }
+
+    useEffect(() => {
+        fetchFlashcards();
+    }, []);
 
     return (
         <>

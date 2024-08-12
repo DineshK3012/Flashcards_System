@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import useFlashcards from '../hooks/useFlashcards.js';
 
 const AddFlashcard = () => {
     const [flashcard, setFlashcard] = useState({ question: '', answer: '', topic: '' });
     const [error, setError] = useState('');
+    const {handleAddFlashcard} = useFlashcards();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFlashcard((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleAddFlashcard = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         // Reset error
         setError('');
 
@@ -19,8 +23,8 @@ const AddFlashcard = () => {
             return;
         }
 
-        // Call API to add it to the database
-        console.log(flashcard);
+        // Call hook to add flashcard to the database
+        await handleAddFlashcard(flashcard);
 
         // Clear the input fields
         setFlashcard({ question: '', answer: '', topic: '' });
@@ -82,7 +86,7 @@ const AddFlashcard = () => {
             )}
 
             <button
-                onClick={handleAddFlashcard}
+                onClick={handleSubmit}
                 className="bg-blue-500 text-white w-full p-3 rounded-lg hover:bg-blue-600 transition duration-300"
             >
                 Add Flashcard

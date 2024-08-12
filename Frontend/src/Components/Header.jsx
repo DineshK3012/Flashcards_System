@@ -3,8 +3,14 @@
 import { Button, Navbar } from "flowbite-react";
 import {Link} from "react-router-dom";
 import logo from "../assets/logo.png";
+import {useRecoilState} from "recoil";
+import {authAtom} from "../recoil/authAtom.js";
+import useAuth from "../hooks/useAuth.js";
 
 export default function Header() {
+    const [auth] = useRecoilState(authAtom);
+    const {handleLogout} = useAuth();
+
     return (
         <Navbar fluid rounded className={`rounded-none border-b-2 z-10`}>
             <Link to="/">
@@ -15,21 +21,33 @@ export default function Header() {
                 </Navbar.Brand>
             </Link>
             <div className="flex md:order-2">
-                <Link to="/login" className="mx-2">
-                    <Button color="purple">Login</Button>
-                </Link>
-                <Link to="/signup" className="mx-2">
-                    <Button color="purple">Signup</Button>
-                </Link>
+                {
+                    auth.isAuthenticated ? (
+                        <Button color="purple" onClick={handleLogout}>Logout</Button>
+                        ) :(
+                            <>
+                                <Link to="/login" className="mx-2">
+                                    <Button color="purple">Login</Button>
+                                </Link>
+
+                                <Link to="/signup" className="mx-2">
+                                <Button color="purple">Signup</Button>
+                                </Link>
+                            </>
+                        )
+                }
                 <Navbar.Toggle/>
             </div>
             <Navbar.Collapse>
                 <Navbar.Link className="text-xl" active>
                     <Link to="/">Home</Link>
                 </Navbar.Link>
-                <Navbar.Link className="text-xl">
-                    <Link to="/dashboard">Dashboard</Link>
-                </Navbar.Link>
+                {
+                    (auth.isAuthenticated && auth.user.isAdmin)  &&
+                     <Navbar.Link className="text-xl">
+                        <Link to="/dashboard">Dashboard</Link>
+                    </Navbar.Link>
+                }
                 <Navbar.Link className="text-xl">
                     <Link to="/about">About</Link>
                 </Navbar.Link>

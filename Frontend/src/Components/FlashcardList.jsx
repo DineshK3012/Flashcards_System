@@ -1,10 +1,13 @@
 import Flashcard from './Flashcard';
 import {useEffect, useState} from "react";
-import flashcards from "../../public/flashcards.js"
+import {useRecoilState} from "recoil";
+import {flashcardsAtom} from "../recoil/flashcardAtom.js";
+import useFlashcards from "../hooks/useFlashcards.js";
 
 export default function FlashcardList() {
-    const [Flashcards, setFlashcards] = useState(flashcards);
+    const [Flashcards, setFlashcards] = useRecoilState(flashcardsAtom)
     const[currentFlashcard, setCurrentFlashcard] = useState(0);
+    const { fetchFlashcards} = useFlashcards();
 
     const nextFlashcard = () => {
         setCurrentFlashcard((prevCard) => {
@@ -17,6 +20,10 @@ export default function FlashcardList() {
             return  (prevCard === 0) ? Flashcards.length - 1: prevCard-1;
         });
     }
+
+    useEffect(() => {
+        fetchFlashcards();
+    }, []);
 
     return (
         <>

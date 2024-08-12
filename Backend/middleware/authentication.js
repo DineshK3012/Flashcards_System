@@ -11,6 +11,9 @@ exports.isAuthenticated = async (req, res, next) => {
             })
         }
         req.user = await verifyToken(token, process.env.JWT_SECRET);
+        if(!req.user){
+            res.status(500).json({ success: false, message: "Please login first" });
+        }
 
         next();
     } catch (error) {

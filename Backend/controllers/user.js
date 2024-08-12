@@ -2,6 +2,14 @@ const userModel = require('../models/user');
 const { generateToken } = require('../config/jwt');
 const bcrypt = require('bcrypt');
 
+const getMyProfile = async (req, res)=>{
+    try {
+        res.json({ success: true, user: req.user });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
 const register = async (req, res) => {
     try {
         const { email, password, name, isAdmin } = req.body;
@@ -20,7 +28,7 @@ const register = async (req, res) => {
         }
 
         const userId = await userModel.registerUser({ email, password, name, isAdmin });
-        const token = await generateToken({ email, userId, isAdmin });
+        const token = await generateToken({ email, userId, name, isAdmin });
 
         res.status(201)
             .cookie("token", token, {
@@ -43,7 +51,7 @@ const login = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const token = await generateToken({ email, userId: user.id, isAdmin: user.isAdmin });
+        const token = await generateToken({ email, userId: user.id, name: user.name, isAdmin: user.isAdmin });
         res.status(200).
         cookie("token", token, {
             expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
@@ -108,5 +116,6 @@ module.exports = {
     login,
     updateUser,
     deleteUser,
-    toggleAdminStatus
+    toggleAdminStatus,
+    getMyProfile
 };
