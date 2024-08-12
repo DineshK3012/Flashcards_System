@@ -29,15 +29,6 @@ export default function App() {
                 <div className="flex flex-col h-screen">
                     <Header />
 
-                    {
-                        auth.isAuthenticated &&
-                        <div className="mt-5 m-4 text-center">
-                            <h1 className="font-bold text-4xl">
-                                Welcome, {auth.user.name}
-                            </h1>
-                        </div>
-                    }
-
                     <Routes>
                         <Route path="/" element={auth.isAuthenticated ? <Home/> : <Register/>}/>
                         <Route path="/dashboard" element={auth.isAuthenticated ? <Dashboard /> : <Navigate to="/register" />} />

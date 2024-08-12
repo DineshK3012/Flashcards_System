@@ -49,7 +49,7 @@ export default function Header() {
                     </Navbar.Link>
                 }
                 <Navbar.Link className="text-xl">
-                    <Link to="/about">About</Link>
+                    {/*<Link to="/about">About</Link>*/}
                 </Navbar.Link>
             </Navbar.Collapse>
         </Navbar>

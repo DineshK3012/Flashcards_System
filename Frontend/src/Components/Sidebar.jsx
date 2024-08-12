@@ -32,13 +32,13 @@ const DashboardSidebar = ({ onOptionClick, active }) => {
             </div>
 
             <div className="flex flex-col flex-grow">
-                <button
-                    className={`flex items-center space-x-2 text-gray-800 p-4 ${active === 0 ? 'bg-gray-100': ''}  hover:bg-gray-100`}
-                    onClick={() => onOptionClick(0)}
-                >
-                    <FaUser size={20}/>
-                    {isExpanded && <span>Edit Users</span>}
-                </button>
+                {/*<button*/}
+                {/*    className={`flex items-center space-x-2 text-gray-800 p-4 ${active === 0 ? 'bg-gray-100': ''}  hover:bg-gray-100`}*/}
+                {/*    onClick={() => onOptionClick(0)}*/}
+                {/*>*/}
+                {/*    <FaUser size={20}/>*/}
+                {/*    {isExpanded && <span>Edit Users</span>}*/}
+                {/*</button>*/}
                 <button
                     className={`flex items-center space-x-2 text-gray-800 p-4 ${active === 1 ? 'bg-gray-100': ''}  hover:bg-gray-100`}
                     onClick={() => onOptionClick(1)}
