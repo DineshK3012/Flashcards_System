@@ -9,6 +9,8 @@ import Login from './Components/Login.jsx';
 import useAuth from './hooks/useAuth';
 import {toast} from "react-toastify";
 
+import Demo from "./Components/Demo.jsx"
+
 export default function App() {
     const { auth, loadCurrentUser } = useAuth();
 
@@ -36,7 +38,16 @@ export default function App() {
                         <Route path="/login" element={auth.isAuthenticated ? <Navigate to="/" /> : <Login />} />
                     </Routes>
 
-                    <Footer />
+                    {
+                        !auth.isAuthenticated &&
+                        <div className="mt-10 text-center">
+                            <h1 className="font-bold text-4xl">Demo</h1>
+                            <Demo/>
+                        </div>
+                    }
+
+
+                    <Footer/>
                 </div>
         </Router>
     );
