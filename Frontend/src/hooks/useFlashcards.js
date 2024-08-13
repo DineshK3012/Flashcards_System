@@ -10,7 +10,6 @@ const useFlashcards = () => {
         try {
             const { data } = await getFlashcards();
             setFlashcards(data);
-            toast.success("Flashcards loaded!");
         } catch (error) {
             toast.error("Failed to load flashcards.");
         }

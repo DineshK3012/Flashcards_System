@@ -41,7 +41,6 @@ const useAuth = () => {
             const { data } = await loadUser();
             setAuth({ isAuthenticated: true, user: data.user });
         } catch (error) {
-            toast.info("Please Login first");
             setAuth({ isAuthenticated: false, user: null });
         }
     };

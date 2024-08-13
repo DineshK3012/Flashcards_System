@@ -30,7 +30,7 @@ export default function Header() {
                                     <Button color="purple">Login</Button>
                                 </Link>
 
-                                <Link to="/signup" className="mx-2">
+                                <Link to="/register" className="mx-2">
                                 <Button color="purple">Signup</Button>
                                 </Link>
                             </>
