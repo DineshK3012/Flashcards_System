@@ -7,8 +7,17 @@ router.post('/register', register);
 router.post('/login', login);
 
 router.get('/logout', isAuthenticated, (req, res) => {
-    res.clearCookie('token');
-    res.status(200).json({ message: 'Logout successful' });
+    res.status(200)
+        .cookie("token", null, {
+            expires: new Date(Date.now()),
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None' // Allow cross-site requests
+        })
+        .json({
+            success: true,
+            message: "Logged out successfully"
+        })
 });
 
 router.get('/me', isAuthenticated, getMyProfile);
