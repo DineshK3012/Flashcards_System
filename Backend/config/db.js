@@ -11,7 +11,9 @@ const connectDatabase = async () => {
             port: process.env.MYSQL_PORT,
             waitForConnections: true,
             connectionLimit: 10,
-            queueLimit: 0
+            queueLimit: 0,
+            connectTimeout: 20000, // 10 seconds
+            acquireTimeout: 20000  // 10 seconds
         });
 
         // to check connection successful or not
