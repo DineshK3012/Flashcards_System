@@ -3,7 +3,7 @@ import React from "react";
 import useAuth from "../hooks/useAuth.js";
 
 export default function Home() {
-    const { auth, loadCurrentUser } = useAuth();
+    const { auth} = useAuth();
 
     return (
         <>
