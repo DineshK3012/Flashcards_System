@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth'; // Adjust the path as needed
 
 const Login = () => {
@@ -14,7 +13,7 @@ const Login = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault();s
         await handleLogin(formData);
         navigate('/');
     };

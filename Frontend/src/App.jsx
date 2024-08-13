@@ -7,8 +7,6 @@ import Dashboard from './Pages/Dashboard.jsx';
 import Register from './Components/Register.jsx';
 import Login from './Components/Login.jsx';
 import useAuth from './hooks/useAuth';
-import {toast} from "react-toastify";
-
 import Demo from "./Components/Demo.jsx"
 
 export default function App() {
@@ -16,11 +14,7 @@ export default function App() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            try {
-                await loadCurrentUser();
-            } catch (error) {
-                toast.error(error);
-            }
+            await loadCurrentUser();
         };
 
         fetchUser();
@@ -28,27 +22,26 @@ export default function App() {
 
     return (
         <Router>
-                <div className="flex flex-col h-screen">
-                    <Header />
+            <div className="flex flex-col h-screen">
+                <Header />
 
-                    <Routes>
-                        <Route path="/" element={auth.isAuthenticated ? <Home/> : <Register/>}/>
-                        <Route path="/dashboard" element={auth.isAuthenticated ? <Dashboard /> : <Navigate to="/register" />} />
-                        <Route path="/register" element={auth.isAuthenticated ? <Navigate to="/" /> : <Register />} />
-                        <Route path="/login" element={auth.isAuthenticated ? <Navigate to="/" /> : <Login />} />
-                    </Routes>
+                <Routes>
+                    <Route path="/" element={auth.isAuthenticated ? <Home/> : <Register/>}/>
+                    <Route path="/dashboard" element={auth.isAuthenticated ? <Dashboard /> : <Navigate to="/register" />} />
+                    <Route path="/register" element={auth.isAuthenticated ? <Navigate to="/" /> : <Register />} />
+                    <Route path="/login" element={auth.isAuthenticated ? <Navigate to="/" /> : <Login />} />
+                </Routes>
 
-                    {
-                        !auth.isAuthenticated &&
-                        <div className="mt-10 text-center">
-                            <h1 className="font-bold text-4xl">Demo</h1>
-                            <Demo/>
-                        </div>
-                    }
+                {
+                    !auth.isAuthenticated &&
+                    <div className="mt-10 text-center">
+                        <h1 className="font-bold text-4xl">Demo</h1>
+                        <Demo/>
+                    </div>
+                }
 
-
-                    <Footer/>
-                </div>
+                <Footer/>
+            </div>
         </Router>
     );
 }
